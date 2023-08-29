@@ -1,5 +1,6 @@
 const db = require('../models/SQLModel');
 import { Request, Response, NextFunction } from 'express';
+import {User, Interview, Business} from '../../types';
 
 export const dbController: any = {};
 
