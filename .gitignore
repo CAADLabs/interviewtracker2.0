@@ -1,0 +1,14 @@
+/node_modules
+/dist
+/tsCompiled
+*/.DS_Store
+.DS_Store
+dvdrental.tar
+/appBuilds
+*.csv
+*.sql
+debug.log
+coverage/
+release-builds/
+UserTableLayouts.json
+
