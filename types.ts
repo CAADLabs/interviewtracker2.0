@@ -3,7 +3,7 @@ export type ServerError = {
     status: number;
     message: { err: string };
   };
-
+ 
 export interface Interview {
   id?: number,
   business_name: string,

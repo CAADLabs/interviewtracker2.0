@@ -1,0 +1,18 @@
+h1 {
+  color: green;
+  display: flex;
+  justify-content: center;
+}
+
+.trackerBoxes {
+  display: flex;
+  justify-content: space-around;
+}
+
+.box {
+  text-align: center;
+  background-color: gray;
+  flex-direction: row;
+  height: 80vh;
+  width: 30vw
+}
