@@ -12,16 +12,18 @@ userController.createUser = async (
     const { username, password, firstName, lastName } = req.body;
     const values = [username, password, firstName, lastName];
     //check if username exists in database first
+    console.log(`in createUser line 13`);
     const queryString = `SELECT * FROM users WHERE username = $1`; //reduce SQL Injection Risk
     const selectResult = await db.query(queryString, [username]);
     //if exists stop
-    if (selectResult || selectResult.rows.length) {
+    if (selectResult.rows.length) {
       res.locals.userCreated = { message: 'username is taken' };
       return next();
     }
     //if not, create
     const insertStr = `INSERT INTO users (username, password, first_name, last_name) VALUES ($1, $2, $3, $4)`;
     const createUserQuery = await db.query(insertStr, values);
+    console.log(`in createUser line 23`);
     res.locals.userCreated = { message: 'User created' };
     return next();
   } catch (err) {
@@ -48,6 +50,7 @@ userController.userLogin = async (
       res.locals.findUser = { message: 'user found!' };
       return next();
     }
+
     res.locals.findUser = { message: `cannot find user` };
     return next();
   } catch (err) {

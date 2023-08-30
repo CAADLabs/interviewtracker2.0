@@ -10,32 +10,29 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const login = () => {
-    fetch('/api/authenticate', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        password:password,
-        username:username
-      }),
-    })
-    .then((data) => {
-      setloggedIn(true)
-      alert("You're successfully logged in!")
-    })
-    .catch((error) => {
-      alert("Either your username or password were incorrect")
-    })
-  }
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate("/main")
+  const login = async () => {
+    try {
+      const response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password:password,
+          username:username
+        }),
+      })
+        if (response.status === 201) {
+          setloggedIn(true)
+          navigate('/main')
+        } else {
+          alert("Username or Password is incorrect!")
+        }
+      
+  } catch(error) {
+      console.log(error)
     }
-  }, [loggedIn]);
-
+  }
 
   return (
     <div className='loginDiv'>
