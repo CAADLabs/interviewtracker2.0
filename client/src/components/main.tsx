@@ -17,6 +17,31 @@ const Main: React.FC = () => {
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
 
+  const upcoming:any = [];
+  const followup:any = [];
+  const complete:any = [];
+  
+  const getInterviews = async () => {
+    try {
+      const response = await fetch('/api/interviews', {
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+        })
+      })
+      console.log(`This is the response to get all posted interviews ${response}`)
+      // response.forEach(el => {
+      //   if (el.status === 'upcoming') upcoming.push(el)
+      // })
+    } catch (error:any) {
+        console.log(error)
+    }
+  };
+
+
   return (
     <>
      <div className="modal"> 
@@ -31,12 +56,27 @@ const Main: React.FC = () => {
       <div className='progressDiv'>
         <div className="box">
           <h2>Upcoming</h2>
+          <div>
+            {upcoming.map((el: any) => {
+              <button> Company: {el.business_name}</button>
+            })}
+          </div>
         </div>
         <div className="box">
           <h2>Follow Ups</h2>
+          <div>
+          {followup.map((el: any) => {
+            <button> Company: {el.business_name}</button>
+          })}
+        </div>
         </div>
         <div className="box">
           <h2>Completed</h2>
+          <div>
+          {complete.map((el: any) => {
+            <button> Company: {el.business_name}</button>
+          })}
+        </div>
         </div>
       </div>
     </div>
