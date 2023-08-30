@@ -2,8 +2,14 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import { ServerError } from '../types';
 import path from 'path';
 
+
+
+import userRouter from './routes/userRouter';
+
 const app = express();
 const PORT = 3000;
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //router
 // app.use('/api', apiRouter)
+app.use('/api/user', userRouter);
+
 
 //route error handler
 app.use((req: Request, res: Response) => {

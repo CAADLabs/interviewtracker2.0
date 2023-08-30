@@ -1,9 +1,9 @@
 const express = require('express');
 
 const dbController = require('../controllers/dbController');
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.post(
   '/table',
