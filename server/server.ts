@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 //route handler functions
 
 //router
-app.use('/api/db', dbRouter)
+app.use('/api/interview', dbRouter)
 app.use('/api/user', userRouter);
 
 
