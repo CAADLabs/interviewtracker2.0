@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, createContext, useContext } from 'react';
 import { Routes, Route } from "react-router-dom";
-import Login from "./src/components/login";
-import Main from "./src/components/main";
+// import Login from "./src/components/login";
+// import Main from "./src/components/main";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +11,6 @@ const App: React.FC = () => {
       <Routes>
         <Route path='/' element={ <Login/> } />
         <Route path='/main' element={ <Main/> } />
-        {/* <Route path='/signup' element={ <Signup/> } /> */}
       </Routes>
     </div>
   );
