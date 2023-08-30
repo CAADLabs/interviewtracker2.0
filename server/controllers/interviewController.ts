@@ -14,22 +14,13 @@ export const dbController: any = {};
 // };
 
 
-dbController.setUpdateType =async (req: Request,
-  res: Response,
-  next: NextFunction,) => {
-  
-
-
-
-}
-
 dbController.updateInterview = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    if (req.body.length < 2 || !req.body.id) return next({
+    if (req.body.length < 2 || !req.body.interview_id) return next({
       log: 'Error caught in dbController.updateInterview',
       status: 400,
       message: {
@@ -38,11 +29,11 @@ dbController.updateInterview = async (
     });
     
 
-    const reqBodyInterviewArr = [req.body.id, req.body.role, req.body.date, req.body.interview_type, req.body.status, req.body.round,  req.body.follow_up, req.body.job_posting_url, req.body.offer, req.body.notes]
+    const reqBodyInterviewArr = [req.body.interview_id,  req.body.date, req.body.business_id, req.body.interview_type, req.body.follow_up, req.body.role, req.body.notes, req.body.status, req.body.round, req.body.job_posting_url, req.body.offer, req.body.interviewer_id, req.body.user_id]
     
-    const reqBodyBusinessArr = [req.body.business_name, req.body.location, req.body.industry, req.body.number_of_employees, req.body.business_type, req.body.company_url]
+    const reqBodyBusinessArr = [req.body.business_id, req.body.business_name, req.body.location, req.body.industry, req.body.number_of_employees, req.body.business_type, req.body.company_url]
 
-    const reqBodyInterviewersArr = [req.body.interviewer, req.body.interviewer_email, req.body.interviewer_phone]
+    const reqBodyInterviewersArr = [req.body.interviewer_id, req.body.interviewer_name, req.body.interviewer_email, req.body.interviewer_phone]
 
     reqBodyInterviewArr.filter(item => item !== null && item !== undefined);
     reqBodyBusinessArr.filter(item => item !== null && item !== undefined);
@@ -54,7 +45,11 @@ dbController.updateInterview = async (
     const setInterviewersString = '';
 
     for (let i = 0; i<reqBodyInterviewArr.length; i++){
-      
+      const subString = '';
+      if (reqBodyInterviewArr[i] === req.body.interview_id){
+        
+      }
+
     }
 
     const interviewQueryString = `
