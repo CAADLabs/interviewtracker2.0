@@ -3,24 +3,26 @@ import { Request, Response, NextFunction } from 'express';
 
 export const userController: any = {};
 
-
-
-userController.createUser = async (req: Request, res: Response, next: NextFunction) => {
+userController.createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const {username, password, firstName, lastName } = req.body;
+    const { username, password, firstName, lastName } = req.body;
     const values = [username, password, firstName, lastName];
     //check if username exists in database first
     const queryString = `SELECT * FROM users WHERE username = $1`; //reduce SQL Injection Risk
     const selectResult = await db.query(queryString, [username]);
     //if exists stop
-    if (selectResult || selectResult.rows.length){
-      res.locals.userCreated = { message: 'username is taken'}
-      return next()
-    } 
+    if (selectResult || selectResult.rows.length) {
+      res.locals.userCreated = { message: 'username is taken' };
+      return next();
+    }
     //if not, create
-    const insertStr = `INSERT INTO users (username, password, first_name, last_name) VALUES ($1, $2, $3, $4)`
+    const insertStr = `INSERT INTO users (username, password, first_name, last_name) VALUES ($1, $2, $3, $4)`;
     const createUserQuery = await db.query(insertStr, values);
-    res.locals.userCreated = { message: 'User created'}
+    res.locals.userCreated = { message: 'User created' };
     return next();
   } catch (err) {
     return next({
@@ -32,17 +34,21 @@ userController.createUser = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-userController.userLogin = async (req: Request, res: Response, next: NextFunction) => {
+userController.userLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const {username, password} = req.body;
-    const values = [username, password]
+    const { username, password } = req.body;
+    const values = [username, password];
     const queryStr = `SELECT * FROM users WHERE username = $1 and password = $2`;
     const result = await db.query(queryStr, values);
-    if (result.rows.length){
-      res.locals.findUser = { message: 'user found!'}
+    if (result.rows.length) {
+      res.locals.findUser = { message: 'user found!' };
       return next();
     }
-    res.locals.findUser = { message: `cannot find user`}
+    res.locals.findUser = { message: `cannot find user` };
     return next();
   } catch (err) {
     return next({
@@ -52,6 +58,6 @@ userController.userLogin = async (req: Request, res: Response, next: NextFunctio
       },
     });
   }
-}
+};
 
 module.exports = userController;
