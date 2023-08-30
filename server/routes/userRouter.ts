@@ -12,8 +12,8 @@ userRouter.post('/create', userController.createUser, (req: Request, res: Respon
 );
 
 userRouter.post('/login', userController.userLogin,  (req: Request, res: Response) => {
-  res.locals.findUser === 'user found!' ? res.send(201).json(res.locals.findUser)
-  : res.status(400).json(res.locals.findUser);
+  res.locals.findUser.message === 'user found!' ? (res.send(201).json(res.locals.findUser))
+  : (res.status(400).json(res.locals.findUser));
 })
 
 
