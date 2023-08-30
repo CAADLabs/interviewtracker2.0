@@ -298,6 +298,7 @@ interviewController.createInterview = async (
 
 export default interviewController;
 
+// helper function to make the queries.
 async function getOrCreateId(
   name: string,
   tableName: string,
