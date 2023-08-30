@@ -1,16 +1,16 @@
-const express = require('express');
+import express from 'express';
 
-const dbController = require('../controllers/dbController');
+import { dbController } from '../controllers/interviewController';
 import { Request, Response, NextFunction } from 'express';
 
 const router = express.Router();
 
 router.post(
   '/table',
-  dbController.createTable,
+  // dbController.createTable,
   (req: Request, res: Response) => {
-    res.status(200);
-  },
+    return res.status(200).send('OK');
+  }
 );
 
 module.exports = router;

@@ -39,7 +39,8 @@
     "types": [
       "node",
       "express",
-      "react"
+      "react",
+      "jest"
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
@@ -114,5 +115,5 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["client/**/*", "server/**/*"]
+  "include": ["client/**/*", "server/**/*", "__tests__/**/*"]
 }
