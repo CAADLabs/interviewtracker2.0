@@ -296,7 +296,25 @@ interviewController.createInterview = async (
   }
 };
 
-export default interviewController;
+interviewController.getInterview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username } = req.params;
+  try {
+    const queryString = `SELECT * FROM interviews WHERE user_id = (SELECT id FROM users WHERE username = $1)`;
+  } catch (err) {
+    return next({
+      log: `ERROR in interviewController.getInterview: ` + err,
+      message: {
+        err: `Trouble getting interview`,
+      },
+    });
+  }
+};
+
+module.exports = interviewController;
 
 // helper function to make the queries.
 async function getOrCreateId(
