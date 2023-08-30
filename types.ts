@@ -6,13 +6,14 @@ export type ServerError = {
 
 export interface Interview {
   id?: number,
-  business: Business,
+  business_name: string,
   role: string,
   date: Date,
-  type: string,
+  interview_type: string,
   status: string,
   round?: number,
   interviewer?: string,
+  interviewer_phone?: string,
   interviewer_email?: string,
   follow_up?: boolean,
   job_posting_url: string,
@@ -30,10 +31,10 @@ export interface User {
 
 export interface Business {
   id?: number,
-  name: string,
-  location: string,
-  industry: string,
+  business_name: string,
+  location?: string,
+  industry?: string,
   number_of_employees?: number;
-  type?: string,
+  business_type?: string,
   company_url: string
 }
