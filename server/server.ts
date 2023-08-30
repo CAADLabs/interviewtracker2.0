@@ -3,7 +3,7 @@ import { ServerError } from '../types';
 import path from 'path';
 
 
-
+import dbRouter from './routes/dbRouter'
 import userRouter from './routes/userRouter';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 //route handler functions
 
 //router
-// app.use('/api', apiRouter)
+app.use('/api/db', dbRouter)
 app.use('/api/user', userRouter);
 
 

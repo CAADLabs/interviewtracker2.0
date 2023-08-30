@@ -8,7 +8,7 @@ export interface Interview {
   id?: number;
   business_id: string;
   role: string;
-  date: Date;
+  date: string;
   type: string;
   status: string;
   round?: number;
@@ -16,8 +16,8 @@ export interface Interview {
   job_posting_url: string;
   offer?: number;
   notes?: string;
-  interviewer_id?: number,
-  user_id?: number
+  interviewer_id?: number;
+  user_id?: number;
 }
 
 export interface User {
