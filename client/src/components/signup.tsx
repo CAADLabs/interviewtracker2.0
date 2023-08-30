@@ -4,12 +4,7 @@ import { User } from "../../../types";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  // const [newUser, setnewUser] = useState<User>({
-  //   username: '',
-  //   password: '',
-  //   firstName: '',
-  //   lastName: '',
-  // });
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -49,7 +44,7 @@ const Signup = () => {
 
   return (
     <div className="bodyDiv">
-      <div className='formDiv'>
+      <div className="formDiv">
         <h2>SIGN UP</h2>
         <form onSubmit={handleSubmit}>
           {/* <label>Username</label> */}
@@ -57,32 +52,38 @@ const Signup = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder='Username'
+            placeholder="Username"
           />
           {/* <label>Password</label> */}
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder='Password'
+            placeholder="Password"
           />
           {/* <label>First Name</label> */}
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder='First Name'
+            placeholder="First Name"
           />
           {/* <label>Last Name</label> */}
           <input
-            id ='lastname'
+            id="lastname"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder='Last Name'
+            placeholder="Last Name"
           />
           <button type="submit">Signup</button>
-          <button>Login Instead</button>
+          <button
+            className="login"
+            type="button"
+            onClick={() => navigate("/")}
+          >
+            Login Instead
+          </button>
         </form>
       </div>
     </div>

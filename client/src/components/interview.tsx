@@ -1,23 +1,60 @@
-import React, {useState} from 'react'
+import React, { useState, createContext, useContext } from 'react'
 
+import {
+  userContext
+} from '../../App'
 
 type Props = {}
 
 const Interview = (props: Props) => {
+  // const currUser = useContext(userContext)
+  const { username, setusername }: any = useContext(userContext);
   const [businessName, setbusinessName] = useState<string>('')
   const [role, setrole] = useState<string>('')
   const [date, setdate] = useState<string>('')
   const [type, settype] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [round, setround] = useState<number>()
-  const [followUp, setfollowUp] = useState<boolean>()
+  const [followUp, setfollowUp] = useState<any>()
   const [postingURL, setPostingURL] = useState<string>('')
   const [offer, setOffer] = useState<number>()
   const [notes, setNotes] = useState<string>('')
+  const [interviewerName, setinterviewerName] = useState<string>('')
+  
+console.log(`testing username in interview ${username}`)
+
+
+  const createInterview = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/interview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+         date,
+         business_name: businessName,
+         type,
+         follow_up: followUp,
+         role,
+         notes,
+         status,
+         round,
+         offer,
+         interviewer_name: interviewerName,
+         user_name: username
+        }),
+      });
+      console.log(response)
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="interviewForm" >
-        <form>
+        <form onSubmit={createInterview}>
         <label>Business Name</label>
           <input
             type="text"
@@ -59,50 +96,38 @@ const Interview = (props: Props) => {
           <input
             type="text"
             placeholder='true or false'
-            // value={username}
-            // onChange={(e) => setUsername(e.target.value)}
+            value={followUp}
+            onChange={(e) => setfollowUp(e.target.value)}
           />
           <label>Add Posting URL</label>
           <input
             type="text"
-            // value={username}
-            // onChange={(e) => setUsername(e.target.value)}
+            value={postingURL}
+            onChange={(e) => setPostingURL(e.target.value)}
           />
           <label>Offer Amount</label>
           <input
             type="text"
             placeholder='Enter a number'
-            // value={username}
-            // onChange={(e) => setUsername(e.target.value)}
+            value={offer}
+            onChange={(e) => setOffer(parseInt(e.target.value))}
           />
           <label>Notes</label>
           <input
             type="text"
-    
-            // value={username}
-            // onChange={(e) => setUsername(e.target.value)}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           />
+            <label>Add Interviewer</label>
+          <input
+            type="text"
+            value={interviewerName}
+            onChange={(e) => setinterviewerName(e.target.value)}
+          />
+          <button type='submit'> Add Interview </button>
         </form>
     </div>
   )
 }
 
 export default Interview
-
-/*
-export interface Interview {
-  id?: number;
-  business_id: string;
-  role: string;
-  date: Date;
-  type: string;
-  status: string;
-  round?: number;
-  follow_up?: boolean;
-  job_posting_url: string;
-  offer?: number;
-  notes?: string;
-  interviewer_id?: number,
-  user_id?: number
-}
-*/

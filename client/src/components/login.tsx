@@ -1,11 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  userContext
+} from '../../App'
+
+
+
 const Login: React.FC = () => {
-  const [username, setusername] = useState<String>("");
+  // const [username, setusername] = useState<String>("");
+  const { username, setusername }: any = useContext(userContext);
   const [password, setpassword] = useState<String>("");
   const [loggedIn, setloggedIn] = useState<Boolean>(false);
+
 
   const navigate = useNavigate();
 
