@@ -5,11 +5,11 @@ import { Request, Response, NextFunction } from 'express';
 
 const router = express.Router();
 
-router.post(
-  '/table',
-  dbController.createTable,
-  (req: Request, res: Response) => {
-    res.status(200);
+router.patch(
+  '/interview',
+  dbController.updateInterview,
+  (_req: Request, res: Response) => {
+    return res.status(200).json(res.locals.interview)
   },
 );
 
