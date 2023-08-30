@@ -8,7 +8,7 @@ import Signup from './src/components/signup';
 const App: React.FC = () => {
   return (
     <div className='app'>
-      <h1>Best Interview Tracker Ever </h1>
+      {/* <h1>Best Interview Tracker Ever </h1> */}
       <Routes>
         <Route path='/' element={ <Login/> } />
         <Route path='/main' element={ <Main/> } />
