@@ -1,16 +1,16 @@
-const express = require('express');
+import express from 'express';
 
-const dbController = require('../controllers/dbController');
-import { Request, Response, NextFunction, Router } from 'express';
+import { dbController } from '../controllers/interviewController';
+import { Request, Response, NextFunction } from 'express';
 
 const router: Router = express.Router();
 
-router.post(
-  '/table',
-  dbController.createTable,
-  (req: Request, res: Response) => {
-    res.status(200);
-  },
+router.patch(
+  '/interview',
+  dbController.updateInterview,
+  (_req: Request, res: Response) => {
+    return res.status(200).json(res.locals.interview);
+  }
 );
 
 module.exports = router;

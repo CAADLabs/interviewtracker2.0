@@ -10,7 +10,7 @@ userController.createUser = async (req: Request, res: Response, next: NextFuncti
     const {username, password, firstName, lastName } = req.body;
     const values = [username, password, firstName, lastName];
     //check if username exists in database first
-    const queryString = `SELECT * FROM users WHERE username = $1`; //SQL Injection Risk
+    const queryString = `SELECT * FROM users WHERE username = $1`; //reduce SQL Injection Risk
     const selectResult = await db.query(queryString, [username]);
     //if exists stop
     if (selectResult || selectResult.rows.length){
@@ -26,7 +26,7 @@ userController.createUser = async (req: Request, res: Response, next: NextFuncti
     return next({
       log: `ERROR in userController.createUser: ` + err,
       message: {
-        err: `trouble creating user`,
+        err: `Trouble creating user`,
       },
     });
   }
@@ -42,13 +42,13 @@ userController.userLogin = async (req: Request, res: Response, next: NextFunctio
       res.locals.findUser = { message: 'user found!'}
       return next();
     }
-    res.locals.findUser = { message: `can't find user`}
+    res.locals.findUser = { message: `cannot find user`}
     return next();
   } catch (err) {
     return next({
       log: `ERROR in userController.userLogin: ` + err,
       message: {
-        err: `trouble finding user`,
+        err: `Trouble finding user`,
       },
     });
   }
