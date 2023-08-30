@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const click = () => {
+  const login = () => {
     fetch('/api/authenticate', {
       method: 'GET',
       headers: {
@@ -34,13 +34,15 @@ const Login: React.FC = () => {
     if (loggedIn) {
       navigate("/main")
     }
-  }, [loggedIn])
+  }, [loggedIn]);
+
 
   return (
     <div className='loginDiv'>
       <input type='text' placeholder='enter username' onChange={(e) => setusername(e.target.value)}/>
       <input type='text' placeholder='enter password' onChange={(e) => setpassword(e.target.value)}/>
-      <button type='button' onClick={click}> Login </button>
+      <button type='button' onClick={login}> Login </button>
+      <button type='button' onClick={() => navigate("/signup")}> Sign Up </button>
     </div>
   )
 }
