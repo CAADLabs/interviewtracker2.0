@@ -188,15 +188,15 @@ interviewController.updateInterview = async (
     let interviewersQuery;
 
     //query database if each array of keys has length, check the query by querying for the table
-    if (interviewKeys.length > 0) {
+    if (interviewKeys.length > 1) {
       interviewQuery = await db.query(interviewQueryStr);
       // console.log('interviewQuery', interviewQuery.rows);
     }
-    if (businessKeys.length > 0) {
+    if (businessKeys.length > 1) {
       businessQuery = await db.query(businessQueryStr);
       // console.log('businessQuery', businessQuery.rows);
     }
-    if (interviewersKeys.length > 0) {
+    if (interviewersKeys.length > 1) {
       interviewersQuery = await db.query(interviewersQueryStr);
       // console.log('interviewersQuery', interviewersQuery.rows);
     }
