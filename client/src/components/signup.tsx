@@ -3,15 +3,20 @@ import { useState } from "react";
 import { User } from "../../../types";
 import { useNavigate } from "react-router-dom";
 
-const Signup = ({ username, password, firstName, lastName }: User)  => {
+const Signup = ()  => {
   const [newUser, setnewUser] = useState<User>({
     username: '',
     password: '',
     firstName: '',
     lastName: '',
   });
-
+ 
   const navigate = useNavigate();
+
+
+  //expected either response from back:
+  //username is taken
+  //User created
 
 const handleSubmit = () => {
   fetch('/api/create', {
@@ -31,7 +36,7 @@ const handleSubmit = () => {
     alert("Either your username or password were incorrect")
   })
 }
-}
+
 
 return (
 

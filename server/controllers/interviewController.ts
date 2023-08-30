@@ -2,7 +2,7 @@ const db = require('../models/SQLModel');
 import { Request, Response, NextFunction } from 'express';
 import {User, Interview, Business, Interviewer} from '../../types';
 
-export const dbController: any = {};
+export const interviewController: any = {};
 
 // dbController.createUser = async (
 //   req: Request,
@@ -14,7 +14,7 @@ export const dbController: any = {};
 // };
 
 
-dbController.updateInterview = async (
+interviewController.updateInterview = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -121,7 +121,7 @@ dbController.updateInterview = async (
   }
 };
 
-module.exports = dbController;
+module.exports = interviewController;
 
 
 //arrays of req body elements
