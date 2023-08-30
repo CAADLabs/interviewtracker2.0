@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import { ServerError } from '../types';
 import path from 'path';
 
-import userRouter from './routes/userRouter';
+const userRouter = require('./routes/userRouter');
 const dbRouter = require('./routes/dbRouter');
 
 const app = express();
@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 //route handler functions
 
 //router
-app.use('/api/interview', dbRouter);
 app.use('/api/user', userRouter);
 app.use('/api/interview', dbRouter);
 
