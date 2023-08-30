@@ -218,4 +218,122 @@ interviewController.updateInterview = async (
   }
 };
 
+interviewController.createInterview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    let interviewer_id: number | null = null;
+    let business_id: number | null = null;
+    let user_id: number | null = null;
+    const {
+      date,
+      business_name,
+      type,
+      follow_up,
+      role,
+      notes,
+      status,
+      round,
+      offer,
+      interviewer_name,
+      user_name,
+    } = req.body;
+
+    if (interviewer_name !== null) {
+      await getOrCreateId(interviewer_name, 'interviewers', 'name')
+        .then((id) => {
+          interviewer_id = id;
+        })
+        .catch((err) => {
+          console.log(`error pulling interviewer id from database: ${err}`);
+        });
+    }
+
+    if (business_name !== null) {
+      await getOrCreateId(business_name, 'businesses', 'name')
+        .then((id) => {
+          business_id = id;
+        })
+        .catch((err) => {
+          console.log(`error pulling business id from database: ${err}`);
+        });
+    }
+
+    await getOrCreateId(user_name, 'users', 'username')
+      .then((id) => {
+        user_id = id;
+      })
+      .catch((err) => {
+        console.log(`error pulling user id from database: ${err}`);
+      });
+
+    const queryString = `INSERT INTO interviews (date, business_id, type, follow_up, role, notes, status, round, offer, interviewer_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
+    const values = [
+      date,
+      business_id,
+      type,
+      follow_up,
+      role,
+      notes,
+      status,
+      round,
+      offer,
+      interviewer_id,
+      user_id,
+    ];
+    const result = await db.query(queryString, values);
+    res.locals.createInterview = { message: 'Interview created' };
+    return next();
+  } catch (err) {
+    return next({
+      log: `ERROR in interviewController.createInterview: ` + err,
+      message: {
+        err: `Trouble creating interview`,
+      },
+    });
+  }
+};
+
 export default interviewController;
+
+async function getOrCreateId(
+  name: string,
+  tableName: string,
+  valueName: string
+): Promise<any> {
+  try {
+    // starting the transaction
+    await db.query('BEGIN');
+
+    // check if interviewer exists
+    const getResult = await db.query(
+      `SELECT * FROM ${tableName} WHERE ${valueName} = $1`,
+      [name]
+    );
+
+    // holder variable to hold the id of the interviewer
+    let found_id: number | null = null;
+
+    // if the length on the array is greater than 0, that means there was a found value.
+    if (getResult.rows.length) {
+      found_id = getResult.rows[0].id;
+    } else {
+      // the interviewer is not found in the database, so we create them.
+      const insertResult = await db.query(
+        `INSERT INTO ${tableName} (${valueName}) VALUES ($1) RETURNING id`,
+        [name]
+      );
+      found_id = insertResult.rows[0].id;
+    }
+
+    // commit the transaction
+    await db.query('COMMIT');
+    return found_id;
+  } catch (error) {
+    // if an error occurs, rollback the transaction
+    await db.query('ROLLBACK');
+    throw error;
+  }
+}
