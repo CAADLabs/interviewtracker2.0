@@ -111,7 +111,7 @@ interviewController.updateInterview = async (
     let setInterviewersPairs = '';
 
     //if valid keys exist, populate strings for column names and upsert values, and conflict update key-value pairs. if the key type is a string, add single quotes around the value
-    if (interviewKeys.length > 0) {
+    if (interviewKeys.length > 1) {
       interviewKeys.forEach(key => {
         setInterviewColumns += `${key}, `;
         if (typeof reqBodyInterview[key] === 'string') {
@@ -124,7 +124,7 @@ interviewController.updateInterview = async (
       });
     }
 
-    if (businessKeys.length > 0) {
+    if (businessKeys.length > 1) {
       businessKeys.forEach(key => {
         setBusinessColumns += `${key}, `;
         if (typeof reqBodyBusiness[key] === 'string') {
@@ -137,7 +137,7 @@ interviewController.updateInterview = async (
       });
     }
 
-    if (interviewersKeys.length > 0) {
+    if (interviewersKeys.length > 1) {
       interviewersKeys.forEach(key => {
         setInterviewersColumns += `${key}, `;
         if (typeof reqBodyInterviewers[key] === 'string') {
@@ -149,6 +149,7 @@ interviewController.updateInterview = async (
         }
       });
     }
+
     //remove the trailing space and comma
     setInterviewColumns = setInterviewColumns.slice(0, -2);
     setInterviewValues = setInterviewValues.slice(0, -2);
@@ -180,14 +181,6 @@ interviewController.updateInterview = async (
       RETURNING *;
     `;
 
-    const interviewCheckStr = 'SELECT * FROM "public"."interviews" LIMIT 100';
-    const businessCheckStr = 'SELECT * FROM "public"."businesses" LIMIT 100';
-    const interviewersCheckStr =
-      'SELECT * FROM "public"."interviewers" LIMIT 100';
-
-    console.log('interview query string', interviewQueryStr);
-    console.log('business query string', businessQueryStr);
-    console.log('interviewers query string', interviewersQueryStr);
 
     //initalize variables to hold query results
     let interviewQuery;
@@ -197,20 +190,22 @@ interviewController.updateInterview = async (
     //query database if each array of keys has length, check the query by querying for the table
     if (interviewKeys.length > 0) {
       interviewQuery = await db.query(interviewQueryStr);
-      console.log('interviewQuery', interviewQuery.rows);
+      // console.log('interviewQuery', interviewQuery.rows);
     }
     if (businessKeys.length > 0) {
       businessQuery = await db.query(businessQueryStr);
-      console.log('businessQuery', businessQuery.rows);
+      // console.log('businessQuery', businessQuery.rows);
     }
     if (interviewersKeys.length > 0) {
       interviewersQuery = await db.query(interviewersQueryStr);
-      console.log('interviewersQuery', interviewersQuery.rows);
+      // console.log('interviewersQuery', interviewersQuery.rows);
     }
 
-    
-
-    //res.locals.interview = interview;
+    res.locals.update = {
+      interview: interviewQuery.rows,
+      business: businessQuery.rows,
+      interviewers: interviewersQuery.rows,
+    };
     next();
   } catch (error) {
     return next({

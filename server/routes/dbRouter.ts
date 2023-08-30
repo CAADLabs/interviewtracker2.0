@@ -7,8 +7,9 @@ dbRouter.patch(
   '/',
   interviewController.updateInterview,
   (_req: Request, res: Response) => {
-    return res.status(200).json(res.locals.interview);
-  }
+    console.log('res.locals.update: ', res.locals.update);
+    return res.status(200).json(res.locals.update);
+  },
 );
 
 export default dbRouter;
